@@ -29,14 +29,17 @@ jobs:
     - name: Install Dependencies
       run: npm install
     
-    - name: Run ESLint
-      run: npm run lint
-    
     - name: Run Prettier
       run: npm run fmt
+    
+    - name: Run ESLint
+      run: npm run lint
     
     - name: Run Build
       run: npm run build
     
-    - name: Run Tests
-      run: npm test
+    - name: Run Unit Tests
+      run: npm test:unit
+    
+    - name: Run E2E Tests
+      run: npm test:ci
