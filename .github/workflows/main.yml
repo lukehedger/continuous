@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    
+    - name: Cache Node Modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-${{ env.cache-name }}-
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-
+    
+    - name: Install Dependencies
+      run: npm install
+    
+    - name: Run ESLint
+      run: npm run lint
+    
+    - name: Run Prettier
+      run: npm run fmt
+    
+    - name: Run Build
+      run: npm run build
+    
+    - name: Run Tests
+      run: npm test
