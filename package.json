@@ -3,10 +3,12 @@
   "private": true,
   "scripts": {
     "build": "rollup --config",
+    "ci": "start-server-and-test start http://localhost:5000 test:e2e",
     "fmt": "prettier app/**/*.tsx --check",
     "lint": "eslint app/**/*.tsx",
     "start": "sirv public --single",
-    "test": "jest app/ && cypress run --record false"
+    "test:e2e": "cypress run --record false",
+    "test:unit": "jest app/"
   },
   "dependencies": {
     "react": "16.11.0",
@@ -29,6 +31,7 @@
     "rollup-plugin-replace": "2.2.0",
     "rollup-plugin-typescript": "1.0.1",
     "sirv-cli": "0.4.5",
+    "start-server-and-test": "1.10.6",
     "tslib": "1.10.0",
     "typescript": "3.7.2"
   }
